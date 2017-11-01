@@ -1,18 +1,33 @@
 const cloudrail = require("cloudrail-si");
-cloudrail.Settings.setKey("[CloudRail License Key]");
+cloudrail.Settings.setKey("[Login to see your license key]");
 
-// let cs = new cloudrail.services.Box(redirectReceiver, "[clientIdentifier]", "[clientSecret]", "[redirectUri]", "[state]");
-// let cs = new cloudrail.services.OneDrive(redirectReceiver, "[clientIdentifier]", "[clientSecret]", "[redirectUri]", "[state]");
-// let cs = new cloudrail.services.OneDriveBusiness(redirectReceiver, "[clientIdentifier]", "[clientSecret]", "[redirectUri]", "[state]");
-// let cs = new cloudrail.services.GoogleDrive(redirectReceiver, "[clientIdentifier]", "[clientSecret]", "[redirectUri]", "[state]");
-let cs = new cloudrail.services.Dropbox(redirectReceiver, "[clientIdentifier]", "[clientSecret]", "[redirectUri]", "[state]");
+let service;
 
-cs.createFolder("/TestFolder", (err) => { // <---
-    if (err) throw err;
-    let fileStream = fs.createReadStream("UserData.csv");
-    let size = fs.statSync("UserData.csv").size;
-    cs.upload("/TestFolder/Data.csv", fileStream, size, false, (err) => { // <---
-        if (err) throw err;
-        console.log("Upload successfully finished");
-    });
-});
+const box = new cloudrail.services.Box(
+    cloudrail.RedirectReceivers.getLocalAuthenticator(8082),
+    "[Box Client Identifier]",
+    "[Box Client Secret]",
+    "http://localhost:8082/auth",
+    "someState"
+);
+
+const dropbox = new cloudrail.services.Dropbox(
+    cloudrail.RedirectReceivers.getLocalAuthenticator(8082),
+    "[Dropbox Client Identifier]",
+    "[Dropbox Client Secret]",
+    "http://localhost:8082/auth",
+    "someState"
+);
+
+// 'selection' is a String representing e.g. a user's service choice
+switch(selection) {
+    case "box": service = box; break;
+    case "dropbox": service = dropbox; break;
+}
+
+service.download(
+    "/myFolder/myFile.png",
+    (error, result) => {
+        // Check for potential error and use the result
+    }
+);
