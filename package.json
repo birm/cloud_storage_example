@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/birm/cloud_storage_example#readme",
   "dependencies": {
-    "cloudrail-si": "^2.21.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "tape": "^4.8.0"
