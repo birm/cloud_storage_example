@@ -22,6 +22,7 @@
   "homepage": "https://github.com/birm/cloud_storage_example#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },
