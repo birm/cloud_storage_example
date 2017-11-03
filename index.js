@@ -1,9 +1,9 @@
 var rp = require('request-promise');
 var fs = require('fs');
 
-// code to get file
-var options = {
-    method: 'POST',
+// options to get file
+var download_file = {
+    method: 'GET',
     uri: 'http://api.posttestserver.com/post',
     body: {
         some: 'payload'
@@ -11,20 +11,14 @@ var options = {
     json: true // Automatically stringifies the body to JSON
 };
 
-rp(options)
+
+rp(download_file)
     .then(function (parsedBody) {
-        // POST succeeded...
+        var file = fs.createWriteStream("file.jpg");
     })
     .catch(function (err) {
         // POST failed...
     });
-
-app.set('view engine', 'pug')
-
-// render the picker
-app.get('/', function (req, res) {
-  res.render('index', { title: 'Hey', message: 'Hello there!' })
-})
 
 // start a download of a file
 app.get('/file/:fileId', function(req, res) {
