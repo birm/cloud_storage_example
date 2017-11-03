@@ -1,5 +1,7 @@
 var rp = require('request-promise');
+var fs = require('fs');
 
+// code to get file
 var options = {
     method: 'POST',
     uri: 'http://api.posttestserver.com/post',
@@ -19,6 +21,12 @@ rp(options)
 
 app.set('view engine', 'pug')
 
+// render the picker
 app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' })
 })
+
+// start a download of a file
+app.get('/file/:fileId', function(req, res) {
+  res.send("Requesting " + req.params.fileId);
+});
